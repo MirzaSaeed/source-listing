@@ -7,24 +7,12 @@
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 
-nav {
-  padding: 30px;
+#app{
+  font-family: 'Lato', sans-serif;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: var(--q-text-active);
 }
 </style>
