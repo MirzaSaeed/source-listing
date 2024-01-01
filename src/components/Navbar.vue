@@ -69,7 +69,7 @@ const logout = async () => {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   background: #f9f9fc;
   padding-left: 20px;
   padding-bottom: 3px;
