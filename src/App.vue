@@ -1,3 +1,5 @@
+<!-- App.vue -->
+
 <template>
   <q-layout
     id="app"
@@ -9,7 +11,7 @@
       <!-- Navbar  -->
     </q-header>
     <!-- Sidebar  -->
-    <q-page-container class="bg-gray-5">
+    <q-page-container class="">
       <q-page>
         <router-view />
       </q-page>
@@ -25,5 +27,9 @@
 }
 nav a.router-link-exact-active {
   color: var(--q-text-active);
+}
+
+.page-container{
+  /* background: var(--q-app-bg); */
 }
 </style>

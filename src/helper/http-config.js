@@ -1,5 +1,6 @@
+// helper/http-config.js //
+
 import axios from "axios";
-import { Notify } from "quasar";
 import { showSnackBar } from "./snack-bar";
 
 const HTTP = axios.create({
@@ -7,16 +8,15 @@ const HTTP = axios.create({
 });
 
 const headers = {
-  // "Content-Type": "application/json",
-  // Authorization: `Bearer ${token}`,
+  Authorization: `Bearer ${token}`,
 };
 
-export function postRequest(endPoint, payload) {
-  return HTTP.post(endPoint, payload, headers);
+export function createRequest(endPoint, payload, includetoken = true) {
+  return HTTP.post(endPoint, payload, includetoken ? headers : {});
 }
 
-export function getRequest(endPoint) {
-  return HTTP.get(endPoint, headers);
+export function getRequest(endPoint, includetoken = true) {
+  return HTTP.post(endPoint, includetoken ? headers : {});
 }
 
 HTTP.interceptors.response.use(
@@ -27,7 +27,7 @@ HTTP.interceptors.response.use(
     } else if (error.request) {
       showSnackBar(false, "No response received from the server");
     } else {
-      showSnackBar(false, error.message);
+      showSnackBar(false, "No response received from the server");
     }
 
     return Promise.reject(error);
