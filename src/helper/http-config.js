@@ -1,22 +1,23 @@
-// helper/http-config.js //
-
+import { useAuthStore } from "@/store/auth-store";
 import axios from "axios";
 import { showSnackBar } from "./snack-bar";
 
-const HTTP = axios.create({
+export const HTTP = axios.create({
   baseURL: process.env.VUE_APP_BASE_URL,
 });
 
-const headers = {
-  Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiYWRtaW4iLCJqdGkiOiJNUWU1ZWRxQUNTIiwiaWF0IjoxNzA0MTg5MjAyLCJleHAiOjE3MDQyNzU2MDJ9.us5XRVjy5cgLWbEH4s7KhVb_PNlPma7n9KMbwyzVMUQ`,
-};
-
 export function postRequest(endPoint, payload) {
-  return HTTP.post(endPoint, payload, { headers });
+  const authStore = useAuthStore();
+  const token = authStore.token || "";
+  HTTP.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  return HTTP.post(endPoint, payload);
 }
 
 export function getRequest(endPoint) {
-  return HTTP.get(endPoint, { headers });
+  const authStore = useAuthStore();
+  const token = authStore.token || "";
+  HTTP.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  return HTTP.get(endPoint);
 }
 
 HTTP.interceptors.response.use(
