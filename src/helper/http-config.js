@@ -1,45 +1,33 @@
 import axios from "axios";
+import { Notify } from "quasar";
+import { showSnackBar } from "./snack-bar";
 
 const HTTP = axios.create({
   baseURL: process.env.VUE_APP_BASE_URL,
 });
 
 const headers = {
-  Authorization: `Bearer ${token}`,
+  // "Content-Type": "application/json",
+  // Authorization: `Bearer ${token}`,
 };
 
-export function createRequest(endPoint, payload, includetoken = true) {
-  return HTTP.post(endPoint, payload, includetoken ? headers : {});
+export function postRequest(endPoint, payload) {
+  return HTTP.post(endPoint, payload, headers);
 }
 
-export function getRequest(endPoint, includetoken = true) {
-  return HTTP.post(endPoint, includetoken ? headers : {});
+export function getRequest(endPoint) {
+  return HTTP.get(endPoint, headers);
 }
 
 HTTP.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      console.error("Error status code:", error.response.status);
-      console.error("Error response data:", error.response.data);
-
-      Notify.create({
-        color: "negative",
-        position: "top",
-        message: `Error: ${error.response.data.message}`,
-      });
+      showSnackBar(false, error.response.data.message);
     } else if (error.request) {
-      Notify.create({
-        color: "negative",
-        position: "top",
-        message: "No response received from the server",
-      });
+      showSnackBar(false, "No response received from the server");
     } else {
-      Notify.create({
-        color: "negative",
-        position: "top",
-        message: `Error: ${error.message}`,
-      });
+      showSnackBar(false, error.message);
     }
 
     return Promise.reject(error);
