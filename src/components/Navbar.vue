@@ -9,12 +9,12 @@
       <div class="navbar-heading">AML Scanner</div>
     </div>
 
-    <router-link to="/sources" class="navbar-item">Sources</router-link>
+    <router-link to="/dashboard/sources" class="navbar-item">Sources</router-link>
 
-    <router-link to="/user-management" class="navbar-item"
+    <router-link to="/dashboard/user-management" class="navbar-item"
       >User Management</router-link
     >
-    <router-link to="/activity-logs" class="navbar-item"
+    <router-link to="/dashboard/activity-logs" class="navbar-item"
       >Activity Logs</router-link
     >
 
@@ -22,7 +22,11 @@
 
     <div class="dropdown-container">
       <!-- User button and dropdown menu -->
-      <img src="../assets/images/user-image.png" alt="User Image" class="user-image" />
+      <img
+        src="../assets/images/user-image.png"
+        alt="User Image"
+        class="user-image"
+      />
       <q-btn class="navbar-user" @click="toggleDropdown" flat>
         <span class="user-name">Colin Aranda</span>
         <q-icon name="arrow_drop_down" class="dropdown-icon"></q-icon>
@@ -38,7 +42,6 @@
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { ref } from "vue";
@@ -64,13 +67,12 @@ const logout = async () => {
 };
 </script>
 
-
 <style scoped>
 .navbar {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: #f9f9fc;
+  background: var(--q-app-bg);
   padding-left: 20px;
   padding-bottom: 3px;
   padding-top: 3px;
@@ -188,7 +190,7 @@ const logout = async () => {
 }
 
 .q-item:hover {
-  background-color: #f9f9f9;
+  background-color: var(--q-app-bg);
   color: black;
 }
 
@@ -235,4 +237,3 @@ const logout = async () => {
   align-items: center;
 }
 </style>
-

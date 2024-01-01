@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="q-pa-md">
+    <router-view />
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-</script>
+<script setup></script>
