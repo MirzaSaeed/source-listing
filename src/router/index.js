@@ -2,21 +2,23 @@
 
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/DashboardView.vue";
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
 
 const routes = [
   {
-    path: "/forgot-password",
-    name: "forgotPassword",
-    component: () => import("../views/ForgotPasswordView.vue"),
     path: "/",
     name: "navbar",
     component: Navbar,
   },
-   {
-    path: "/",
-    name: "navbar",
-    component: Navbar,
+  {
+    path: "/forgot-password",
+    name: "forgotPassword",
+    component: () => import("../views/ForgotPasswordView.vue"),
+  },
+  {
+    path: "/set-password/:token",
+    name: "setPassword",
+    component: () => import("../views/SetPasswordView.vue"),
   },
   // {
   //   path: "/about",
