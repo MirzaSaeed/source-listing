@@ -64,15 +64,15 @@
 
 <script setup>
 import { useAuthStore } from "@/store/auth-store";
-// import { Notify } from "quasar";
 import { ref } from "vue";
 
 const email = ref("");
 
 const authStore = useAuthStore();
 
-const onSubmit = async () => {
-  await authStore.forgetPassword({
+const onSubmit =  () => {
+  debugger
+   authStore.forgetPassword({
     email: email.value,
   });
 };

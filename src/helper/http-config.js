@@ -8,15 +8,15 @@ const HTTP = axios.create({
 });
 
 const headers = {
-  Authorization: `Bearer ${token}`,
+  Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiYWRtaW4iLCJqdGkiOiJNUWU1ZWRxQUNTIiwiaWF0IjoxNzA0MTg5MjAyLCJleHAiOjE3MDQyNzU2MDJ9.us5XRVjy5cgLWbEH4s7KhVb_PNlPma7n9KMbwyzVMUQ`,
 };
 
-export function createRequest(endPoint, payload, includetoken = true) {
-  return HTTP.post(endPoint, payload, includetoken ? headers : {});
+export function postRequest(endPoint, payload) {
+  return HTTP.post(endPoint, payload, { headers });
 }
 
-export function getRequest(endPoint, includetoken = true) {
-  return HTTP.post(endPoint, includetoken ? headers : {});
+export function getRequest(endPoint) {
+  return HTTP.get(endPoint, { headers });
 }
 
 HTTP.interceptors.response.use(

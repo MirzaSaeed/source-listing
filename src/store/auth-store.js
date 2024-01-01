@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { postRequest, getRequest } from "@/helper/http-config";
+import { showSnackBar } from "@/helper/snack-bar";
 
 export const useAuthStore = defineStore("auth", {
   state: () => {
@@ -25,7 +26,7 @@ export const useAuthStore = defineStore("auth", {
     async handleLogout() {
       try {
         const response = await getRequest("/api/auth/logout");
-        console.log(response);
+        showSnackBar(true, response.data.message);
       } catch (error) {}
     },
     persist: true,

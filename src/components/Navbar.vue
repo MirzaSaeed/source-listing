@@ -3,7 +3,7 @@
     <!-- Main horizontal navbar items -->
     <div class="row align-center">
       <q-img
-        src="../assets/Vector4x.png"
+        src="../assets/images/Vector4x.png"
         style="width: 25.97px; height: 24.09px; margin-right: 8px"
       />
       <div class="navbar-heading">AML Scanner</div>
@@ -22,7 +22,7 @@
 
     <div class="dropdown-container">
       <!-- User button and dropdown menu -->
-      <img src="../assets/user-image.png" alt="User Image" class="user-image" />
+      <img src="../assets/images/user-image.png" alt="User Image" class="user-image" />
       <q-btn class="navbar-user" @click="toggleDropdown" flat>
         <span class="user-name">Colin Aranda</span>
         <q-icon name="arrow_drop_down" class="dropdown-icon"></q-icon>
