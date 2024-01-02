@@ -14,6 +14,7 @@ export default {
       "btn-bg": "#F1F1F6",
       "btn-text": "#5D5FEC",
       "text-disable": "#9C9DAF",
+      "icon-color": "#5D5FEC",
     },
   },
   plugins: { Notify },

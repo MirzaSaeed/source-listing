@@ -1,3 +1,5 @@
+// store/source-store.js //
+
 import { defineStore } from "pinia";
 
 export const useSourceStore = defineStore("source", {

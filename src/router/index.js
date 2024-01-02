@@ -1,12 +1,15 @@
+// router/index.js //
+
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/DashboardView.vue";
+import Navbar from "../components/Navbar"
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "navbar",
+    component: Navbar,
   },
+
   // {
   //   path: "/about",
   //   name: "about",
