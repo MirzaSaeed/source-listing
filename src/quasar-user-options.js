@@ -7,6 +7,8 @@ export default {
   config: {
     brand: {
       "app-bg": "#F9F9FC",
+      "app-logo-text": "#323346",
+      "text-heading": "#484964",
       "text-color": "#40415A",
       "app-secondary": "#F2F2F7",
       "text-active": "#5D5FEC",
@@ -14,6 +16,8 @@ export default {
       "btn-bg": "#F1F1F6",
       "btn-text": "#5D5FEC",
       "text-disable": "#9C9DAF",
+      "icon-color": "#5D5FEC",
+      "faded-text": " #ABACBE",
     },
   },
   plugins: { Notify },

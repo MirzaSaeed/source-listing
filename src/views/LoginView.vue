@@ -1,5 +1,7 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <Login />
 </template>
+<script setup>
+import Login from "../components/Login.vue";
+
+</script>
