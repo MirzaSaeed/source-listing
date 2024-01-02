@@ -28,11 +28,7 @@ const routes = [
     name: "setPassword",
     component: () => import("../views/SetPasswordView.vue"),
   },
-  {
-    path: "/drop-down",
-    name: "dropDown",
-    component: () => import("../components/DropDown.vue"),
-  },
+
   {
     path: "/dashboard",
     name: "dashboard",
