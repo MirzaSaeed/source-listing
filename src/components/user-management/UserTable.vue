@@ -29,47 +29,23 @@
 
     <template v-slot:body="props">
       <q-tr :props="props">
-        <q-td
-          key="name"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
+        <q-td key="name" :props="props">
           {{ props.row.name }}
         </q-td>
-        <q-td
-          key="type"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
-          {{ props.row.type }}
+        <q-td key="email" :props="props">
+          {{ props.row.email }}
         </q-td>
-        <q-td
-          key="createdAt"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
+        <q-td key="role" :props="props">
+          {{ props.row.role }}
+        </q-td>
+        <q-td key="createdAt" :props="props">
           {{ props.row.createdAt }}
         </q-td>
-        <q-td
-          key="category"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
-          {{ props.row.category }}
-        </q-td>
-        <q-td
-          key="body"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
-          {{ props.row.body }}
+        <q-td key="updatedAt" :props="props">
+          {{ props.row.updatedAt }}
         </q-td>
 
-        <q-td
-          key="actions"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
+        <q-td key="actions" :props="props">
           <q-btn
             flat
             round
@@ -156,17 +132,28 @@ defineProps(["columns, rows, pagination"]);
 
 <style scoped>
 .table {
-  border: 1px solid #e8ebf4;
+  border: 1px solid var(-q--table-border);
   font-family: "Lato", sans-serif;
 
   border-radius: 8px;
 }
-.heading-row {
-  font-weight: bold;
+
+.q-table__container :deep(.q-table__middle table thead tr th) {
+  line-height: 15.6px;
   font-family: "Lato", sans-serif;
+  font-size: 13px;
+  font-weight: 700 !important;
+  color: var(-q--text-heading);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
 }
-.q-table :deep(.q-table--dense .q-table th) {
-  border: 1px solid #e8ebf4;
-  font-size: 22px;
+.q-table__container :deep(.q-table__middle table tbody tr td) {
+  padding-left: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 12px;
+  line-height: 14.4px;
+  color: var(-q--text-heading);
 }
 </style>
