@@ -49,7 +49,6 @@ export const useAuthStore = defineStore("auth", {
     },
     async handleLogout() {
       try {
-        const router = useRouter();
         const response = await getRequest("/api/auth/logout");
         this.token = "";
         this.isAuthenticated = false;

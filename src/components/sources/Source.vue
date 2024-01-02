@@ -1,12 +1,12 @@
 <template>
   <div class="q-pa-md">
-    <Table :columns="columns" :rows="rows" :pagination="pagination" />
+    <SourceTable :columns="columns" :rows="rows" :pagination="pagination" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import Table from "./Table.vue"
+import SourceTable from "./SourceTable.vue"
 const pagination = ref({
   sortBy: "desc",
   descending: false,

@@ -9,7 +9,7 @@
   >
     <q-header>
       <!-- Navbar  -->
-      <Navbar v-if="isAuthenticated && token !== ''" />
+      <Navbar v-if="isAuthenticated === true && token !== ''" />
     </q-header>
     <!-- Sidebar  -->
     <q-page-container>
@@ -18,10 +18,11 @@
   </q-layout>
 </template>
 <script setup>
+import { storeToRefs } from "pinia";
 import Navbar from "./components/Navbar.vue";
 import { useAuthStore } from "./store/auth-store";
 
-const { isAuthenticated, token } = useAuthStore();
+const { isAuthenticated, token } = storeToRefs(useAuthStore());
 </script>
 
 <style>

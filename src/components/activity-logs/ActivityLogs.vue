@@ -1,12 +1,12 @@
 <template>
   <div class="q-pa-md">
-    <Table :columns="columns" :rows="rows" :pagination="pagination" />
+    <ActivityTable :columns="columns" :rows="rows" :pagination="pagination" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import Table from "./Table.vue"
+import ActivityTable from "./ActivityTable.vue"
 const pagination = ref({
   sortBy: "desc",
   descending: false,

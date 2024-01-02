@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import ForgotPassword from "../components/ForgotPassword.vue";
+import ForgotPassword from "../components/Authenication/ForgotPassword.vue";
 </script>
 
 <style></style>
