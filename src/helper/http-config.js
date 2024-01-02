@@ -13,6 +13,12 @@ export function postRequest(endPoint, payload) {
   return HTTP.post(endPoint, payload);
 }
 
+export function patchRequest(endPoint, payload) {
+  const authStore = useAuthStore();
+  const token = authStore.token || "";
+  HTTP.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  return HTTP.patch(endPoint, payload);
+}
 export function getRequest(endPoint) {
   const authStore = useAuthStore();
   const token = authStore.token || "";

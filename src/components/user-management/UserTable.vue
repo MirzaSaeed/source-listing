@@ -131,29 +131,5 @@ defineProps(["columns, rows, pagination"]);
 </script>
 
 <style scoped>
-.table {
-  border: 1px solid var(-q--table-border);
-  font-family: "Lato", sans-serif;
 
-  border-radius: 8px;
-}
-
-.q-table__container :deep(.q-table__middle table thead tr th) {
-  line-height: 15.6px;
-  font-family: "Lato", sans-serif;
-  font-size: 13px;
-  font-weight: 700 !important;
-  color: var(-q--text-heading);
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-}
-.q-table__container :deep(.q-table__middle table tbody tr td) {
-  padding-left: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 12px;
-  line-height: 14.4px;
-  color: var(-q--text-heading);
-}
 </style>

@@ -19,6 +19,7 @@ export default {
       "icon-color": "#5D5FEC",
       "faded-text": " #ABACBE",
       "table-border": "#e8ebf4",
+      "white": "#FFF"
       
     },
   },

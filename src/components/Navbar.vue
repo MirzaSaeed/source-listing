@@ -9,7 +9,10 @@
       <div class="navbar-heading">AML Scanner</div>
     </div>
 
-    <router-link to="/dashboard/sources" class="navbar-item">Sources</router-link>
+    <router-link to="/dashboard" class="navbar-item">Dashboard</router-link>
+    <router-link to="/dashboard/sources" class="navbar-item"
+      >Sources</router-link
+    >
 
     <router-link to="/dashboard/user-management" class="navbar-item"
       >User Management</router-link

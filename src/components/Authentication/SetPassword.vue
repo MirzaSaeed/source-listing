@@ -81,8 +81,11 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/store/auth-store";
 import { ref } from "vue";
+import { useRoute } from "vue-router";
 
+const authStore = useAuthStore();
 const confirmPassword = ref("");
 const password = ref("");
 const rules = [
@@ -100,11 +103,12 @@ const rules = [
 
 const isPwd1 = ref(true);
 const isPwd2 = ref(true);
-
+const route = useRoute();
 const onSubmit = async () => {
   await authStore.setPassword({
     password: password.value,
     confirmPassword: confirmPassword.value,
+    token: route.params.token,
   });
 };
 </script>

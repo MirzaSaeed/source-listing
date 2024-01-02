@@ -29,47 +29,64 @@
 
     <template v-slot:body="props">
       <q-tr :props="props">
-        <q-td
-          key="name"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
-          {{ props.row.name }}
+        <q-td key="sourceName" auto-width :props="props">
+          {{ props.row.sourceName }}
         </q-td>
-        <q-td
-          key="type"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
+        <q-td key="sourceURL" auto-width :props="props">
+          {{ props.row.sourceURL }}
+        </q-td>
+        <q-td key="country" auto-width :props="props">
+          {{ props.row.country }}
+        </q-td>
+        <q-td key="coverage" auto-width :props="props">
+          {{ props.row.coverage }}
+        </q-td>
+        <q-td key="type" auto-width :props="props">
           {{ props.row.type }}
         </q-td>
-        <q-td
-          key="createdAt"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
-          {{ props.row.createdAt }}
-        </q-td>
-        <q-td
-          key="category"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
+        <q-td key="category" auto-width :props="props">
           {{ props.row.category }}
         </q-td>
-        <q-td
-          key="body"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
-          {{ props.row.body }}
+        <q-td key="language" auto-width :props="props">
+          {{ props.row.language }}
         </q-td>
-
-        <q-td
-          key="actions"
-          :props="props"
-          style="font-size: 12px; line-height: 14.4px; color: #484964"
-        >
+        <q-td key="format" auto-width :props="props">
+          {{ props.row.format }}
+        </q-td>
+        <q-td key="comment" auto-width :props="props">
+          {{ props.row.comment }}
+        </q-td>
+        <q-td key="cost" auto-width :props="props">
+          {{ props.row.cost }}
+        </q-td>
+        <q-td key="keyMapping" auto-width :props="props">
+          {{ props.row.keyMapping }}
+        </q-td>
+        <q-td key="integrations" auto-width :props="props">
+          <q-checkbox dense class="checkbox" v-model="props.row.integrations" />
+        </q-td>
+        <q-td key="techComments" auto-width :props="props">
+          {{ props.row.techComments }}
+        </q-td>
+        <q-td key="integrationStatus" auto-width :props="props">
+          {{ props.row.integrationStatus }}
+        </q-td>
+        <q-td key="lastUpdatedBy" auto-width :props="props">
+          {{ props.row.lastUpdatedBy }}
+        </q-td>
+        <q-td key="updatedAt" auto-width :props="props">
+          {{ props.row.updatedAt }}
+        </q-td>
+        <q-td key="createdAt" auto-width :props="props">
+          {{ props.row.createdAt }}
+        </q-td>
+        <!-- <q-td key="editSource" :props="props">
+          {{ props.row.editSource }}
+        </q-td>
+        <q-td key="clickUpTasks" :props="props">
+          {{ props.row.clickUpTasks }}
+        </q-td> -->
+        <q-td key="actions" auto-width :props="props">
           <q-btn
             flat
             round
@@ -155,18 +172,15 @@ defineProps(["columns, rows, pagination"]);
 </script>
 
 <style scoped>
-.table {
-  border: 1px solid #e8ebf4;
-  font-family: "Lato", sans-serif;
 
-  border-radius: 8px;
+.q-table__container :deep(.q-table__middle table tbody tr td:last-child) {
+  position: sticky;
+  right: 0;
+  background-color: var(--q-white);
 }
-.heading-row {
-  font-weight: bold;
-  font-family: "Lato", sans-serif;
-}
-.q-table :deep(.q-table--dense .q-table th) {
-  border: 1px solid #e8ebf4;
-  font-size: 22px;
+.q-table__container :deep(.q-table__middle table thead tr th:last-child) {
+  position: sticky;
+  right: 0;
+  background-color: var(--q-white);
 }
 </style>

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { postRequest, getRequest, HTTP } from "@/helper/http-config";
+import { postRequest,patchRequest, getRequest, HTTP } from "@/helper/http-config";
 import { showSnackBar } from "@/helper/snack-bar";
 import { useRouter } from "vue-router";
 import router from "@/router";
@@ -43,7 +43,7 @@ export const useAuthStore = defineStore("auth", {
     },
     async setPassword(payload) {
       try {
-        const response = await postRequest("/api/auth/set-password", payload);
+        const response = await patchRequest("/api/auth/set-password", payload);
         showSnackBar(true, response.data.message);
       } catch (error) {}
     },

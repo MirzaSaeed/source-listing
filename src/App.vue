@@ -39,4 +39,19 @@ const { isAuthenticated, token } = storeToRefs(useAuthStore());
 .page-container {
   /* background: var(--q-app-bg); */
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color:#d4d4d4;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color:#9b9b9b
+  /* transition: all ease-in-out 0.2s; */
+}
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255)
+}
 </style>
