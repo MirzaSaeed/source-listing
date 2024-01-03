@@ -20,9 +20,21 @@ const routes = [
     component: () => import("../views/SetPasswordView.vue"),
   },
   {
+    path: "/drop-down",
+    name: "dropDown",
+    component: () => import("../components/DropDown.vue"),
+  },
+  {
     path: "/dashboard",
     name: "dashboard",
     component: () => import("../views/DashboardView.vue"),
+    children: [
+      {
+        path: "/sources",
+        name: "sources",
+        component: () => import("../views/SourceView.vue"),
+      },
+    ],
   },
 ];
 

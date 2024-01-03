@@ -2,7 +2,7 @@
   <div class="body">
     <q-page class="flex flex-column items-center justify-center">
       <div class="flex visible-content flex-column justify-center">
-        <div class="row q-mb-xl">
+        <div class="q-mb-md row">
           <div class="col flex justify-center">
             <img
               src="@/assets/images/frame.png"
