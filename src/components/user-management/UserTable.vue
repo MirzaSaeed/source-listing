@@ -3,7 +3,7 @@
     dense
     flat
     title="Treats"
-    :rows="row" 
+    :rows="row"
     class="table"
     :columns="columns"
     row-key="name"
@@ -36,18 +36,17 @@
         text-color="var(--q-text-active)"
       >
         <img :src="leftIcon" alt="Left Icon" class="q-mr-sm icons" />
-        Select Role
+        <span class="btn-text">
+          Select Role
+        </span>
         <img :src="rightIcon" alt="Right Icon" class="q-ml-sm icon" />
       </q-btn>
 
-      <q-btn
-        class="q-ml-sm text"
-        color="primary"
-        flat
-        @click="removeRow"
-      >
+      <q-btn class="q-ml-sm text" color="primary" flat @click="removeRow">
         <img :src="leftIcon2" alt="Left Icon" class="q-mr-sm icons" />
-        Select Date Range
+        <span class="btn-text" >
+          Select Date Range</span
+        >
         <img :src="rightIcon2" alt="Right Icon" class="q-ml-sm icon" />
       </q-btn>
     </template>
@@ -198,24 +197,6 @@ const removeRow = () => {
 </script>
 
 <style scoped>
-.table {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid var(--q--table-border);
-  font-family: "Lato", sans-serif;
-  border-radius: 8px;
-}
-
-.q-table__container :deep(.q-table__middle table thead tr th) {
-  line-height: 15.6px;
-  font-family: "Lato", sans-serif;
-  font-size: 13px;
-  font-weight: 700 !important;
-  color: var(--q--text-heading);
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-}
 .icons {
   width: 12px;
   height: 15px;
@@ -224,25 +205,10 @@ const removeRow = () => {
   width: 8.33px;
   height: 5px;
 }
-
-.q-table__container :deep(.q-table__middle table tbody tr td) {
-  padding-left: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 12px;
-  line-height: 14.4px;
-  color: var(--q--text-heading);
-}
-
-.text {
+.btn-text{
+  text-transform: capitalize; color: var(--q-text-active);
   font-size: 12px;
   font-weight: 600;
-}
-
-.q-btn {
-  text-transform: none;
-}
-.q-btn__content :deep(text) {
-  color: var(--q-text-active);
+  line-height: 16px;
 }
 </style>

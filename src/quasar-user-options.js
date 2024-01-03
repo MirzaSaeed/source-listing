@@ -19,8 +19,8 @@ export default {
       "icon-color": "#5D5FEC",
       "faded-text": " #ABACBE",
       "table-border": "#e8ebf4",
-      
-      "dropdown-border":"#9BA2FF",
+      white: "#FFF",
+      "dropdown-border": "#9BA2FF",
     },
   },
   plugins: { Notify },
