@@ -24,6 +24,11 @@ const routes = [
     component: () => import("../views/ForgotPasswordView.vue"),
   },
   {
+    path: "/calander",
+    name: "calander",
+    component: () => import("../components/user-management/Calander.vue"),
+  },
+  {
     path: "/set-password/:token",
     name: "setPassword",
     component: () => import("../views/SetPasswordView.vue"),

@@ -18,6 +18,7 @@ export default {
       "text-disable": "#9C9DAF",
       "icon-color": "#5D5FEC",
       "faded-text": " #ABACBE",
+      "dropdown-border":"#9BA2FF",
     },
   },
   plugins: { Notify },
