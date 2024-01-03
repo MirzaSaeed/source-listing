@@ -2,7 +2,7 @@
   <div class="body">
     <q-page class="flex flex-column items-center justify-center">
       <div class="flex visible-content flex-column justify-center">
-        <div class=" row q-mb-md">
+        <div class="row q-mb-xl">
           <div class="col flex justify-center">
             <img
               src="@/assets/images/frame.png"
@@ -70,9 +70,9 @@ const email = ref("");
 
 const authStore = useAuthStore();
 
-const onSubmit =  () => {
-  debugger
-   authStore.forgetPassword({
+const onSubmit = () => {
+  debugger;
+  authStore.forgetPassword({
     email: email.value,
   });
 };

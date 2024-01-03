@@ -6,8 +6,8 @@ import router from "./router";
 import { Quasar } from "quasar";
 import quasarUserOptions from "./quasar-user-options";
 import pinia from "./store";
-import InputField from "./components/InputField.vue";
-import Button from "./components/Button.vue";
+import InputField from "./components/global/InputField.vue";
+import Button from "./components/global/Button.vue";
 
 const app = createApp(App);
 

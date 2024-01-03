@@ -2,12 +2,21 @@
 
 import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
+import { useAuthStore } from "@/store/auth-store";
 
 const routes = [
   {
     path: "/",
     name: "login",
     component: LoginView,
+    beforeEnter: (to, from, next) => {
+      const authStore = useAuthStore();
+      if (authStore.isAuthenticated && authStore.token !== null) {
+        next("/dashboard");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/forgot-password",
@@ -28,11 +37,35 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: () => import("../views/DashboardView.vue"),
+    beforeEnter: (to, from, next) => {
+      const authStore = useAuthStore();
+      if (authStore.isAuthenticated && authStore.token !== null) {
+        next();
+      } else {
+        next("/");
+      }
+    },
     children: [
       {
-        path: "/sources",
+        path: "",
+        name: "dashboard",
+        // component: () => import("../components/dashboard/Dashboard.vue"),
+      },
+      {
+        path: "user-management",
+        name: "userManagement",
+        component: () =>
+          import("../components/user-management/UserManagement.vue"),
+      },
+      {
+        path: "sources",
         name: "sources",
-        component: () => import("../views/SourceView.vue"),
+        component: () => import("../components/sources/Source.vue"),
+      },
+      {
+        path: "activity-logs",
+        name: "activityLogs",
+        component: () => import("../components/activity-logs/ActivityLogs.vue"),
       },
     ],
   },
