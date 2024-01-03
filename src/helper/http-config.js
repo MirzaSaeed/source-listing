@@ -15,7 +15,7 @@ export function postRequest(endPoint, payload) {
 
 export function getRequest(endPoint) {
   const authStore = useAuthStore();
-  const token = authStore.token || "";
+  const token = authStore.token;
   HTTP.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   return HTTP.get(endPoint);
 }

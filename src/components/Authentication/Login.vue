@@ -60,7 +60,7 @@
             <div class="flex justify-between q-mb-md">
               <span class="flex item-center">
                 <input type="checkbox" v-model="rememberMe" class="q-mr-sm" />
-                <span class="q-mr-xl">Remember me</span>
+                <span class="q-mr-xl box" >Remember me</span>
               </span>
               <span class="q-link" @click="navigateToForgotPassword">
                 Forgot Password?
@@ -105,6 +105,9 @@ const navigateToForgotPassword = () => {
   background-image: url("@/assets/images/login.jpeg");
   background-size: cover;
   background-position: top;
+}
+.box{
+  cursor: pointer;
 }
 .q-link {
   text-decoration: none;

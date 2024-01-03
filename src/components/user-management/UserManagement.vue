@@ -1,12 +1,16 @@
 <template>
   <div class="q-pa-md">
-    <UserTable :columns="columns" :rows="rows" :pagination="pagination" />
+    <UserTable :columns="columns" :rows="users" :loading="loading" :pagination="pagination" />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { ref, watchEffect } from "vue";
 import UserTable from "./UserTable.vue";
+import { useUserStore } from "@/store/user-store";
+const { users } = storeToRefs(useUserStore());
+const { loading } = storeToRefs(useUserStore());
 const pagination = ref({
   sortBy: "desc",
   descending: false,
@@ -16,270 +20,48 @@ const pagination = ref({
 const columns = [
   {
     name: "name",
-    required: true,
+    align: "center",
     label: "Name",
-    align: "left",
+    field: "name",
     sortable: true,
   },
   {
     name: "email",
-    align: "left",
+    align: "center",
     label: "Email",
     field: "email",
     sortable: true,
   },
-  {
+  /*{
     name: "role",
+    align: "center",
     label: "Role",
-    align: "left",
     field: "role",
+    sortable: true,
+  },*/
+  {
+    name: "createdBy",
+    align: "center",
+    label: "Created By",
+    field: "createdBy",
     sortable: true,
   },
   {
-    name: "createdAt",
-    label: "Created At",
-    align: "left",
-    field: "createdAt",
+    name: "currentStatus",
+    align: "center",
+    label: "Current Status",
+    field: "currentStatus",
+    sortable: true,
   },
-  {
-    name: "updatedAt",
-    label: "Updated At",
-    align: "left",
-    field: "updatedAt",
-  },
-
   {
     name: "actions",
-    label: "Actions",
     align: "center",
+    label: "Actions",
     field: "actions",
-  },
-  // {
-  //   name: "calcium",
-  //   label: "Calcium (%)",
-  //   field: "calcium",
-  //   sortable: true,
-  //   sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-  // },
-  // {
-  //   name: "iron",
-  //   label: "Iron (%)",
-  //   field: "iron",
-  //   sortable: true,
-  //   sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-  // },
-];
-
-const rows = [
-  {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "Admin",
-    createdAt: "2022-01-01",
-    updatedAt: "2022-01-02",
-  },
-  {
-    name: "Jane Doe",
-    email: "jane@example.com",
-    role: "User",
-    createdAt: "2022-02-01",
-    updatedAt: "2022-02-02",
-  },
-  {
-    name: "Bob Smith",
-    email: "bob@example.com",
-    role: "Editor",
-    createdAt: "2022-03-01",
-    updatedAt: "2022-03-02",
-  },
-  {
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    role: "Viewer",
-    createdAt: "2022-04-01",
-    updatedAt: "2022-04-02",
-  },
-  {
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    createdAt: "2022-05-01",
-    updatedAt: "2022-05-02",
-  },
-  {
-    name: "Eva Martinez",
-    email: "eva@example.com",
-    role: "User",
-    createdAt: "2022-06-01",
-    updatedAt: "2022-06-02",
-  },
-  {
-    name: "David Wilson",
-    email: "david@example.com",
-    role: "Editor",
-    createdAt: "2022-07-01",
-    updatedAt: "2022-07-02",
-  },
-  {
-    name: "Grace Lee",
-    email: "grace@example.com",
-    role: "Viewer",
-    createdAt: "2022-08-01",
-    updatedAt: "2022-08-02",
-  },
-  {
-    name: "Frank Adams",
-    email: "frank@example.com",
-    role: "Admin",
-    createdAt: "2022-09-01",
-    updatedAt: "2022-09-02",
-  },
-  {
-    name: "Sophie Turner",
-    email: "sophie@example.com",
-    role: "User",
-    createdAt: "2022-10-01",
-    updatedAt: "2022-10-02",
-  },
-  {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "Admin",
-    createdAt: "2022-01-01",
-    updatedAt: "2022-01-02",
-  },
-  {
-    name: "Jane Doe",
-    email: "jane@example.com",
-    role: "User",
-    createdAt: "2022-02-01",
-    updatedAt: "2022-02-02",
-  },
-  {
-    name: "Bob Smith",
-    email: "bob@example.com",
-    role: "Editor",
-    createdAt: "2022-03-01",
-    updatedAt: "2022-03-02",
-  },
-  {
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    role: "Viewer",
-    createdAt: "2022-04-01",
-    updatedAt: "2022-04-02",
-  },
-  {
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    createdAt: "2022-05-01",
-    updatedAt: "2022-05-02",
-  },
-  {
-    name: "Eva Martinez",
-    email: "eva@example.com",
-    role: "User",
-    createdAt: "2022-06-01",
-    updatedAt: "2022-06-02",
-  },
-  {
-    name: "David Wilson",
-    email: "david@example.com",
-    role: "Editor",
-    createdAt: "2022-07-01",
-    updatedAt: "2022-07-02",
-  },
-  {
-    name: "Grace Lee",
-    email: "grace@example.com",
-    role: "Viewer",
-    createdAt: "2022-08-01",
-    updatedAt: "2022-08-02",
-  },
-  {
-    name: "Frank Adams",
-    email: "frank@example.com",
-    role: "Admin",
-    createdAt: "2022-09-01",
-    updatedAt: "2022-09-02",
-  },
-  {
-    name: "Sophie Turner",
-    email: "sophie@example.com",
-    role: "User",
-    createdAt: "2022-10-01",
-    updatedAt: "2022-10-02",
-  },
-  {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "Admin",
-    createdAt: "2022-01-01",
-    updatedAt: "2022-01-02",
-  },
-  {
-    name: "Jane Doe",
-    email: "jane@example.com",
-    role: "User",
-    createdAt: "2022-02-01",
-    updatedAt: "2022-02-02",
-  },
-  {
-    name: "Bob Smith",
-    email: "bob@example.com",
-    role: "Editor",
-    createdAt: "2022-03-01",
-    updatedAt: "2022-03-02",
-  },
-  {
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    role: "Viewer",
-    createdAt: "2022-04-01",
-    updatedAt: "2022-04-02",
-  },
-  {
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    createdAt: "2022-05-01",
-    updatedAt: "2022-05-02",
-  },
-  {
-    name: "Eva Martinez",
-    email: "eva@example.com",
-    role: "User",
-    createdAt: "2022-06-01",
-    updatedAt: "2022-06-02",
-  },
-  {
-    name: "David Wilson",
-    email: "david@example.com",
-    role: "Editor",
-    createdAt: "2022-07-01",
-    updatedAt: "2022-07-02",
-  },
-  {
-    name: "Grace Lee",
-    email: "grace@example.com",
-    role: "Viewer",
-    createdAt: "2022-08-01",
-    updatedAt: "2022-08-02",
-  },
-  {
-    name: "Frank Adams",
-    email: "frank@example.com",
-    role: "Admin",
-    createdAt: "2022-09-01",
-    updatedAt: "2022-09-02",
-  },
-  {
-    name: "Sophie Turner",
-    email: "sophie@example.com",
-    role: "User",
-    createdAt: "2022-10-01",
-    updatedAt: "2022-10-02",
+    sortable: true,
   },
 ];
+watchEffect(() => {
+  useUserStore().fetchUsers(1, "");
+});
 </script>

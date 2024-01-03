@@ -2,34 +2,61 @@
     <div class="calendar-modal">
       <div class="header">
         <div class="dropdown">
-          <button class="dropdown-btn" :style="{ borderColor: '#9BA2FF' }">
+          <button
+            class="dropdown-btn"
+            :style="{ borderColor: '#9BA2FF', borderBottom: 'none' }"
+          >
             {{ selectedMonth }}
-            <img src="@/assets/icons/vector-image.png" alt="Dropdown Icon" class="icons" />
+            <img
+              src="@/assets/icons/vector-image.png"
+              alt="Dropdown Icon"
+              class="icons"
+            />
           </button>
           <div class="dropdown-content">
-            <div class="dropdown-option" v-for="month in months" :key="month" @click="selectMonth(month)">
+            <div
+              class="dropdown-option"
+              v-for="month in months"
+              :key="month"
+              @click="selectMonth(month)"
+            >
               {{ month }}
             </div>
           </div>
         </div>
   
         <div class="dropdown">
-          <button class="dropdown-btn" :style="{ borderColor: '#9BA2FF' }">
+          <button
+            class="dropdown-btn"
+            :style="{ borderColor: '#9BA2FF', borderBottom: 'none' }"
+          >
             {{ selectedYear }}
-            <img src="@/assets/icons/vector-image.png" alt="Dropdown Icon" class="icons" />
+            <img
+              src="@/assets/icons/vector-image.png"
+              alt="Dropdown Icon"
+              class="icons"
+            />
           </button>
           <div class="dropdown-content">
-            <div class="dropdown-option" v-for="year in reversedYears" :key="year" @click="selectYear(year)">
+            <div
+              class="dropdown-option"
+              v-for="year in reversedYears"
+              :key="year"
+              @click="selectYear(year)"
+            >
               {{ year }}
             </div>
           </div>
         </div>
-  
         <div class="close-icon" @click="closeModal">
-          <img src="@/assets/icons/cross-icon.png" alt="Close Icon" class="icon" />
+          <img
+            src="@/assets/icons/cross-icon.png"
+            alt="Close Icon"
+            class="icon"
+          />
         </div>
       </div>
-      <!-- Calendar content goes here -->
+      <div class="divider">Mon Tue Wed Thu Fri Sat Sun</div>
     </div>
   </template>
   
@@ -38,6 +65,10 @@
       max-width: 100%;
       width: 276px;
       height: 298px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   
     .header {
@@ -47,7 +78,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px;
-      border-bottom: 1px solid #9BA2FF;
+      border-bottom: 1px solid #9ba2ff;
     }
   
     .dropdown {
@@ -86,28 +117,28 @@
       z-index: 1;
       display: none;
       background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 9px rgba(53, 46, 44, 0.12);
       border: 1px solid var(--q-dropdown-border);
       border-radius: 4px;
       max-height: 100px;
       overflow-y: auto;
       width: 100%;
-
+  
       scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  }
-
-  .dropdown-content::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .dropdown-content::-webkit-scrollbar-thumb {
-    background-color: transparent;
-  }
-
-  .dropdown-content::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
+      scrollbar-color: transparent transparent;
+    }
+  
+    .dropdown-content::-webkit-scrollbar {
+      width: 6px;
+    }
+  
+    .dropdown-content::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+  
+    .dropdown-content::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
   
     .dropdown-option {
       padding: 8px;
@@ -122,6 +153,26 @@
     .dropdown:hover .dropdown-content {
       display: block;
     }
+  
+    .divider {
+    background-color: #5d5fec;
+    border-radius: 4px;
+    width: 242px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+    opacity: 5%;
+  }
+
+  .divider-text {
+    color: #484964;
+    font-family: "Lato", sans-serif !important;
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 100%;
+  }
   
     .close-icon {
       cursor: pointer;
@@ -141,28 +192,37 @@
   </style>
   
   <script setup>
-  import { ref } from 'vue';
+    import { ref } from "vue";
   
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
   
-  const years = Array.from({ length: 25 }, (_, index) => 2024 - index);
-  const reversedYears = years.slice().reverse();
+    const years = Array.from({ length: 25 }, (_, index) => 2024 - index);
+    const reversedYears = years.slice().reverse();
   
-  const selectedMonth = ref(months[new Date().getMonth()]);
-  const selectedYear = ref(new Date().getFullYear());
+    const selectedMonth = ref(months[new Date().getMonth()]);
+    const selectedYear = ref(new Date().getFullYear());
   
-  const selectMonth = (month) => {
-    selectedMonth.value = month;
-  };
+    const selectMonth = (month) => {
+      selectedMonth.value = month;
+    };
   
-  const selectYear = (year) => {
-    selectedYear.value = year;
-  };
+    const selectYear = (year) => {
+      selectedYear.value = year;
+    };
   
-  const closeModal = () => {
-  };
+    const closeModal = () => {};
   </script>
   
