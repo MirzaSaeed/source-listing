@@ -1,36 +1,121 @@
 <template>
   <div class="navbar">
-    <!-- Main horizontal navbar items -->
+    <!-- Logo and Hamburger Menu Icon for Mobile -->
     <div class="row align-center">
+      <q-btn
+        icon="menu"
+        flat
+        @click="toggleMenu"
+        class="hamburger"
+        v-show="isMobile"
+      />
+
       <q-img
         src="../assets/images/Vector4x.png"
+        class="logo"
         style="width: 25.97px; height: 24.09px; margin-right: 8px"
       />
       <div class="navbar-heading">AML Scanner</div>
     </div>
 
-    <router-link to="/sources" class="navbar-item">Sources</router-link>
+    <!-- Navbar Items -->
+    <div :class="{ 'navbar-items': true, show: menuOpen }">
+      <!-- Mobile View: User Image -->
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          flex-direction: column;
+          width: 100%;
+        "
+      >
+        <img
+          style="margin-bottom: 10px"
+          src="../assets/images/user-image.png"
+          alt="User Image"
+          class="user-image mobile-user-image"
+          v-show="isMobile"
+        />
 
-    <router-link to="/user-management" class="navbar-item"
-      >User Management</router-link
-    >
-    <router-link to="/activity-logs" class="navbar-item"
-      >Activity Logs</router-link
-    >
+        <span class="mobile-user-name">{{ authStore.user?.UserName || 'Guest' }}</span>
+      </div>
+
+      <router-link
+        to="/sources"
+        class="navbar-item"
+        active-class="navbar-item-active"
+        >Sources</router-link
+      >
+      <router-link
+        to="/dashboard/user-management"
+        class="navbar-item"
+        active-class="navbar-item-active"
+        >User Management</router-link
+      >
+      <router-link
+        to="/activity-logs"
+        class="navbar-item"
+        active-class="navbar-item-active"
+        >Activity Logs</router-link
+      >
+
+      <!-- Mobile View: Dropdown Options -->
+      <!-- <div class="mobile-dropdown-options" v-show="isMobile">
+        <q-item clickable v-close-popup @click="logout" class="navbar-item">
+          <q-icon name="vpn_key" class="menu-icon"></q-icon>
+          <span>Logout</span>
+        </q-item>
+      </div> -->
+
+      <!-- Mobile View: User Dropdown -->
+      <div class="mobile-dropdown-container" v-show="isMobile">
+        <!-- <img
+          src="../assets/images/user-image.png"
+          alt="User Image"
+          class="user-image"
+        /> -->
+        <q-btn class="navbar-user" @click="toggleDropdown" flat>
+          <span class="user-name" style="font-size: 10px">{{ authStore.user?.UserName || 'Guest' }}</span>
+          <q-icon name="arrow_drop_down" class="dropdown-icon"></q-icon>
+        </q-btn>
+        <q-menu  v-model="dropdownOpen">
+          <q-list >
+            <q-item class="extra-mobile-logout" clickable v-close-popup @click="logout">
+              <q-icon
+                name="vpn_key"
+                class="menu-icon"
+                style="margin-right: 8px"
+              ></q-icon>
+              <q-item-section>Logout</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </div>
+    </div>
 
     <q-space></q-space>
 
+    <!-- User Dropdown -->
     <div class="dropdown-container">
-      <!-- User button and dropdown menu -->
-      <img src="../assets/images/user-image.png" alt="User Image" class="user-image" />
+      <img
+        src="../assets/images/user-image.png"
+        alt="User Image"
+        class="user-image"
+      />
       <q-btn class="navbar-user" @click="toggleDropdown" flat>
-        <span class="user-name">Colin Aranda</span>
+        <span class="user-name" style="font-size: 10px">{{ authStore.user?.UserName || 'Guest' }}</span>
         <q-icon name="arrow_drop_down" class="dropdown-icon"></q-icon>
       </q-btn>
       <q-menu v-model="dropdownOpen" anchor="bottom right" self="top right">
         <q-list>
-          <q-item clickable v-close-popup @click="logout">
-            <q-icon name="vpn_key" class="menu-icon"></q-icon>
+          <q-item class="mobile-logout" clickable v-close-popup @click="logout">
+            <q-icon
+              name="vpn_key"
+              class="menu-icon"
+              style="margin-right: 8px"
+            ></q-icon>
             <q-item-section>Logout</q-item-section>
           </q-item>
         </q-list>
@@ -40,29 +125,60 @@
 </template>
 
 
+
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { QBtn, QIcon, QMenu, QList, QItem, QItemSection } from "quasar";
 import { useRouter } from "vue-router";
 import { Notify } from "quasar";
 import { useAuthStore } from "@/store/auth-store";
 
-const authStore = useAuthStore();
-
+// State for dropdown and menu
 const dropdownOpen = ref(false);
+const menuOpen = ref(false);
+const isMobile = ref(window.innerWidth < 950);
 
+const authStore = useAuthStore();
 const router = useRouter();
 
+console.log(authStore.user);
+
+// Toggles the dropdown menu
 const toggleDropdown = (event) => {
   event.stopPropagation();
   dropdownOpen.value = !dropdownOpen.value;
 };
 
+// Toggles the mobile navbar menu
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value;
+};
+
+// Logout function
 const logout = async () => {
   await authStore.handleLogout();
   dropdownOpen.value = false;
+  router.push({ name: "login" });
 };
+
+// Watch for window resize to update isMobile
+onMounted(() => {
+  const handleResize = () => {
+    isMobile.value = window.innerWidth < 950;
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  // Cleanup event listener on component unmount
+  watch(
+    () => isMobile.value,
+    () => {
+      window.removeEventListener("resize", handleResize);
+    }
+  );
+});
 </script>
+
 
 
 <style scoped>
@@ -70,10 +186,15 @@ const logout = async () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: #f9f9fc;
-  padding-left: 20px;
-  padding-bottom: 3px;
-  padding-top: 3px;
+  background: var(--q-app-bg);
+  padding: 0 20px;
+  height: 35px;
+}
+
+.dropdown-container {
+  /* margin-right: 20px; */
+  display: flex;
+  align-items: center;
 }
 
 .row.align-center {
@@ -81,54 +202,48 @@ const logout = async () => {
   align-items: center;
 }
 
-.q-img,
-.navbar-heading,
-.navbar-item,
-.navbar-user {
-  display: flex;
-  align-items: center;
-  /* margin-right: 20px; */
-  padding: 5px;
+.logo {
+  width: 25.97px;
+  height: 24.09px;
+  margin-right: 8px;
 }
 
-.navbar-heading {
-  margin-right: 20px;
-  font-weight: bold;
-}
-
-.navbar-item {
-  height: 34px;
-  font-size: 13px;
-  margin-right: 20px;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #40415a;
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.navbar-item:hover {
-  /* background-color: #e3e3ff; */
-  color: #5d5fec;
-  font-weight: 700;
-}
-
-.navbar-user {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  width: 120px;
+.hamburger {
+  display: none;
 }
 
 .navbar-heading {
   font-weight: 600;
   font-size: 18.15px;
   line-height: 21.78px;
-  color: #323346;
+  color: var(--q-app-logo-text);
   margin-left: 10px;
-  margin-right: 10px;
+}
+
+.navbar-item {
+  font-family: Lato, sans-serif;
+  font-size: 13px;
+  margin-right: 20px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--q-text-color);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.navbar-item-active,
+.navbar-item:hover {
+  color: var(--q-text-active);
+  font-weight: 700;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0px;
+  /* font-size: 12px; */
 }
 
 .user-image {
@@ -139,52 +254,29 @@ const logout = async () => {
 }
 
 .user-name {
+  font-family: Lato, sans-serif;
   font-weight: 500;
   margin-right: 8px;
-  font-size: 13px;
+  font-size: 11.5px;
+  color: var(--q-text-color);
 }
 
-.user-name :deep {
-  font-size: 10px;
-  margin: 0px;
-}
-
-.material-icons {
-  font-family: "Material Icons";
-  font-weight: normal;
-  font-style: normal;
+.dropdown-icon {
   font-size: 24px;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "liga";
+  color: var(--q-text-color);
 }
 
 .q-menu {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
-  top: 50px !important;
 }
 
-/* .q-menu:hover {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-} */
-
 .q-item {
-  /* padding: 12px 20px; */
   cursor: pointer;
   width: 120px;
   height: 24px;
+  align-items: center;
 }
 
 .q-item:hover {
@@ -192,47 +284,102 @@ const logout = async () => {
   color: black;
 }
 
-/* .q-item[data-v-41458b80]:hover :deep {
-  background-color: white; */
-/* padding: 12px 20px;
-  cursor: pointer;
+.mobile-user-image {
+  display: none; /* Initially hidden, will be shown only in mobile view */
+  border-radius: 50%;
   width: 100px;
-} */
+  height: 100px;
+  margin-right: 8px;
+}
 
-/* .q-item:hover :deep {
-  background-color: white;
-  color: #5d5fec;
-} */
+.mobile-user-name {
+  display: none;
+  font-size: 14px; /* Adjust as needed */
+  color: var(--q-text-color);
+  /* Add additional styling as needed */
+}
 
-.dropdown-menu {
+.mobile-dropdown-options {
+  display: none; /* Initially hidden */
+}
+
+.mobile-dropdown-container{
   display: none;
 }
 
-.dropdown-menu.show {
-  display: block;
+.extra-mobile-logout{
+    display: none;
+  }
+
+
+/* Responsive Design */
+@media (max-width: 950px) {
+  .hamburger {
+    display: block;
+    padding-left: 0px;
+    color: var(--q-text-color);
+  }
+
+  .mobile-logout{
+    display: none;
+
+  }
+
+  .extra-mobile-logout{
+    display: flex;
+    flex-direction: row;
+    
+  }
+
+  .navbar-items,
+  .dropdown-container {
+    display: none;
+  }
+
+  .navbar-items.show {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--q-app-bg);
+    width: 218px;
+    height: 100vh;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-item[data-v-41458b80] {
+    margin: 0px 0;
 }
 
-@media (max-width: 950px) {
-  .navbar-items {
-    display: none;
+  .navbar-item {
+    margin: 10px 0;
+  }
+
+  .mobile-user-image {
+    display: block; /* Show the user image in mobile view */
+  }
+
+  .mobile-dropdown-options {
+    display: block; /* Show dropdown options in mobile view */
+    /* padding: 10px; */
+  }
+
+  .mobile-dropdown-container{
+  display: block;
+  padding: 10px 15px;
+}
+  .mobile-user-name {
+    display: block;
+    font-size: 14px; /* Adjust as needed */
+    color: var(--q-text-color);
+    /* Add additional styling as needed */
   }
 }
 
-.menu-icon {
-  margin-right: 8px;
-  font-size: 16px;
-  align-self: center;
-}
 
-/* .q-item,
-.q-item-type.row.no-wrap.q-item--clickable.q-link.cursor-pointer.q-focusable.q-hoverable {
-  margin-right: 20px;
-} */
-
-.dropdown-container {
-  margin-right: 20px;
-  display: flex;
-  align-items: center;
-}
 </style>
+
 

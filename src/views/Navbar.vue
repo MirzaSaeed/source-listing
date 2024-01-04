@@ -1,7 +1,7 @@
 <!-- Navbar.vue -->
 
 <template>
-  <Navbar/>
+ 
 </template>
 <script setup>
 

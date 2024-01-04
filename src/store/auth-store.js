@@ -1,7 +1,10 @@
+// store/auth-store.js
+
 import { defineStore } from "pinia";
 import { postRequest, getRequest, HTTP } from "@/helper/http-config";
 import { showSnackBar } from "@/helper/snack-bar";
 import { useRouter } from "vue-router";
+import router from "@/router";
 
 export const useAuthStore = defineStore("auth", {
   state: () => {
@@ -18,13 +21,14 @@ export const useAuthStore = defineStore("auth", {
         const response = await postRequest("/api/auth/login", payload);
         const token = response.data.token;
         HTTP.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
         this.token = token;
         this.isAuthenticated = true;
+        this.user = response.data;
         if (payload.rememberMe) {
           this.rememberMe = true;
         }
         showSnackBar(true, response.data.message);
+        router.push("/dashboard");
       } catch (error) {}
     },
 

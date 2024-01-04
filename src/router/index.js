@@ -23,6 +23,13 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: () => import("../views/DashboardView.vue"),
+    children: [
+      {
+        path: "user-management",
+        name: "user-management",
+        component: () => import("../components/UserManagement.vue"),
+      },
+    ]
   },
 ];
 
